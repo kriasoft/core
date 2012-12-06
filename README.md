@@ -7,6 +7,8 @@ This is a collection of helper classes and utilities developed by Konstantin Tar
 Reading .xpo files (Omega Research Export File Type)
 
 ```csharp
+using KriaSoft.IO;
+
 using (var xpo = new XpoReader("quotes.xpo"))
 {
     var symbols = xpo.GetSymbols();
