@@ -1,6 +1,6 @@
 ## KriaSoft Core Library
 
-This is a collection of helper classes and utilities released under Apache License 2.0.
+This is a collection of various helper classes and utilities released under [Apache License 2.0](https://github.com/kriasoft/core/blob/master/LICENSE.txt).
 
 ### Usage samples
 
