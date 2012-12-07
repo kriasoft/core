@@ -85,6 +85,9 @@ namespace KriaSoft.IO
 
         private Stream stream;
 
+        // Symbols cache
+        private Symbol[] symbols;
+
         private bool leaveOpen;
 
         public XpoReader(Stream stream, bool leaveOpen = false)
@@ -103,8 +106,15 @@ namespace KriaSoft.IO
         {
         }
 
-        public IEnumerable<Symbol> GetSymbols()
+        public Symbol[] GetSymbols()
         {
+            if (this.symbols != null)
+            {
+                return this.symbols;
+            }
+
+            var symbolsList = new List<Symbol>();
+
             // Read 10-bytes gzip header
             var buffer = new byte[10];
             
@@ -186,11 +196,12 @@ namespace KriaSoft.IO
                     this.stream.Read(buffer, 0, buffer.Length); // TODO: Find the meaning
                     var num2 = BitConverter.ToInt32(buffer, 0);
 
-                    yield return new Symbol(ticker, exchange, interval, num1, num2);
-    
+                    symbolsList.Add(new Symbol(ticker, exchange, interval, num1, num2));
                 }
             }
-        }        
+
+            return this.symbols = symbolsList.ToArray();
+        }
 
         public void Dispose()
         {
